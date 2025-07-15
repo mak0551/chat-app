@@ -31,6 +31,7 @@
         <input id="input" autocomplete="off" placeholder="Type your message..." />
         <button>Send</button>
     </form>
+    <p id="user-info"></p>
 
     <script src="/socket.io/socket.io.js"></script>
     <script>
@@ -52,6 +53,18 @@
             item.textContent = msg;
             messages.appendChild(item);
             window.scrollTo(0, document.body.scrollHeight);
+        });
+
+        socket.on('your name', function (name) {
+            username = name;
+            document.getElementById("user-info").textContent = `You are: ${username}`;
+        });
+
+        socket.on('user connected', function (message) {
+            alert(message);
+        });
+        socket.on('user disconnected', function (message) {
+            alert(message);
         });
     </script>
 </body>
