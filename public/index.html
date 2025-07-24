@@ -33,7 +33,22 @@
     </form>
     <p id="user-info"></p>
 
-    <script src="/socket.io/socket.io.js"></script>
+    <script src="https://cdn.socket.io/4.7.2/socket.io.min.js"></script>
+    <script>
+        const socket = io("http://localhost:5000", {
+            auth: {
+                token: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4ODIwNjljMjE1ZTMyNTViNzllMzViNiIsInVzZXJuYW1lIjoibWFrIiwiaWF0IjoxNzUzMzUxOTc4fQ.XqKBBWBKyd2q6TPvgs8oSRKto3jMz2F_PM9qgg6hovI"
+            }
+        });
+        socket.on("connect", () => {
+            console.log("✅ Connected as", socket.id);
+        });
+
+        socket.on("connect_error", (err) => {
+            console.error("❌ Connection Error:", err.message);
+        });
+    </script>
+    <!-- <script src="/socket.io/socket.io.js"></script>
     <script>
         const socket = io();
         const form = document.getElementById('form');
@@ -66,7 +81,7 @@
         socket.on('user disconnected', function (message) {
             alert(message);
         });
-    </script>
+    </script> -->
 </body>
 
 </html>
