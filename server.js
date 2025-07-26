@@ -10,6 +10,7 @@ dotenv.config();
 import authRoutes from "./routes/auth.js";
 import ChatRoutes from "./routes/chat.js";
 import { socketAuth } from "./middleware/socketAuth.js";
+import { ChatRoom } from "./models/ChatRoom.js";
 
 const connectWithRetry = async () => {
   try {
@@ -30,10 +31,10 @@ app.use(express.json());
 
 const server = http.createServer(app); // creating a http server here, Required to manually create an HTTP server, which is needed for attaching Socket.IO.
 const io = new Server(server, {
-  cors: { origin: "*" }, // CORS configuration for Socket.IO
+  cors: { origin: "http://localhost:3000", credentials: true }, // CORS configuration for Socket.IO
 });
 
-app.use(cors({ origin: "*" }));
+app.use(cors({ origin: "http://localhost:3000", credentials: true }));
 
 const port = process.env.PORT || 5000;
 // server.listen() is used instead of app.listen() because we are using Socket.IO, which requires an HTTP server instance.
